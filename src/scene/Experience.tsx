@@ -37,7 +37,7 @@ export function Experience({ started, whistle, input }: Props) {
   const arrowRoot = useRef<THREE.Group>(null)
   const arrowInner = useRef<THREE.Group>(null)
   const glow = useRef<THREE.PointLight>(null)
-  const pos = useRef(new THREE.Vector3(0, 3.5, 6))
+  const pos = useRef(new THREE.Vector3(0, 3.5, 0))
   const vel = useRef(new THREE.Vector3())
   const heading = useRef({ yaw: 0, pitch: 0 })
   const spin = useRef(0)
@@ -179,7 +179,11 @@ export function Experience({ started, whistle, input }: Props) {
     }
 
     if (!started) {
-      camera.position.set(Math.sin(t * 0.11) * 9.5, 4.6, Math.cos(t * 0.11) * 9.5)
+      camera.position.set(
+        root.position.x + Math.sin(t * 0.11) * 8.4,
+        root.position.y + 1.35,
+        root.position.z + Math.cos(t * 0.11) * 8.4,
+      )
       camera.lookAt(root.position)
       const cam = camera as THREE.PerspectiveCamera
       if (Math.abs(cam.fov - 58) > 0.05) {
@@ -217,8 +221,8 @@ export function Experience({ started, whistle, input }: Props) {
       <pointLight position={[-4.8, 6.1, -16]} color="#ff2a14" intensity={5.2} distance={24} decay={2} />
       <pointLight position={[4.8, 6.0, 16]} color="#ff4018" intensity={4.6} distance={24} decay={2} />
       <Hall />
-      <group ref={arrowRoot} position={[0, 3.5, 6]}>
-        <group ref={arrowInner}>
+      <group ref={arrowRoot} position={[0, 3.5, 0]}>
+        <group ref={arrowInner} scale={1.35}>
           <YakaArrow />
         </group>
         <pointLight ref={glow} color="#ff2c12" intensity={1.8} distance={14} decay={2} />
