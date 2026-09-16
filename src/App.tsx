@@ -43,9 +43,9 @@ export default function App() {
         }}
         camera={{ fov: 58, near: 0.12, far: 76, position: [0, 4.4, 12] }}
         onCreated={({ gl }) => {
-          gl.setClearColor('#140303')
+          gl.setClearColor('#1c0e08')
           gl.toneMapping = THREE.ACESFilmicToneMapping
-          gl.toneMappingExposure = 1.02
+          gl.toneMappingExposure = 1.22
         }}
         onPointerDown={lockPointer}
       >

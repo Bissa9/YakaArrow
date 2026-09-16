@@ -47,7 +47,7 @@ canvas {
   justify-content: flex-start;
   padding: 28px;
   background:
-    linear-gradient(180deg, rgba(10, 1, 1, 0.15) 0%, rgba(10, 1, 1, 0.55) 48%, rgba(8, 0, 0, 0.88) 100%);
+    linear-gradient(180deg, rgba(18, 8, 4, 0.08) 0%, rgba(14, 4, 2, 0.38) 52%, rgba(10, 2, 1, 0.86) 100%);
 }
 
 .panel {

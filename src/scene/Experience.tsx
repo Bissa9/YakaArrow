@@ -180,9 +180,9 @@ export function Experience({ started, whistle, input }: Props) {
 
     if (!started) {
       camera.position.set(
-        root.position.x + Math.sin(t * 0.11) * 8.4,
-        root.position.y + 1.35,
-        root.position.z + Math.cos(t * 0.11) * 8.4,
+        root.position.x + Math.sin(t * 0.11) * 7.2,
+        root.position.y + 1.15,
+        root.position.z + Math.cos(t * 0.11) * 7.2,
       )
       camera.lookAt(root.position)
       const cam = camera as THREE.PerspectiveCamera
@@ -214,12 +214,10 @@ export function Experience({ started, whistle, input }: Props) {
 
   return (
     <>
-      <color attach="background" args={['#140303']} />
-      <fog attach="fog" args={['#180505', 11, 46]} />
-      <ambientLight intensity={0.16} color="#4a1810" />
-      <hemisphereLight args={['#6a2218', '#241208', 0.48]} />
-      <pointLight position={[-4.8, 6.1, -16]} color="#ff2a14" intensity={5.2} distance={24} decay={2} />
-      <pointLight position={[4.8, 6.0, 16]} color="#ff4018" intensity={4.6} distance={24} decay={2} />
+      <color attach="background" args={['#1c0e08']} />
+      <fog attach="fog" args={['#2a140c', 20, 68]} />
+      <ambientLight intensity={0.7} color="#d6ae72" />
+      <hemisphereLight args={['#ff8a62', '#a06a30', 0.82]} />
       <Hall />
       <group ref={arrowRoot} position={[0, 3.5, 0]}>
         <group ref={arrowInner} scale={1.35}>

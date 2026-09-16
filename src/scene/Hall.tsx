@@ -37,9 +37,9 @@ type Piece = {
 
 function paint(rand: () => number, yellow: boolean): [number, number, number] {
   if (yellow) {
-    return [0.62 + rand() * 0.22, 0.42 + rand() * 0.16, 0.16 + rand() * 0.08]
+    return [0.86 + rand() * 0.12, 0.64 + rand() * 0.16, 0.28 + rand() * 0.1]
   }
-  return [0.38 + rand() * 0.12, 0.2 + rand() * 0.08, 0.08 + rand() * 0.04]
+  return [0.62 + rand() * 0.12, 0.4 + rand() * 0.1, 0.16 + rand() * 0.06]
 }
 
 function buildPieces(): Piece[] {
@@ -169,46 +169,54 @@ export function Hall() {
   }, [pieces])
 
   const { width: W, height: H, length: L } = HALL
-  const wallColor = '#8a6420'
-  const floorColor = '#4a3010'
+  const wallColor = '#c8963a'
+  const floorColor = '#b07e32'
+  const stoneMat = {
+    color: '#e2b45a',
+    emissive: '#5a3310',
+    emissiveIntensity: 0.28,
+  } as const
 
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.15, 0]}>
         <planeGeometry args={[W + 2.4, L + 2.4]} />
-        <meshLambertMaterial color={floorColor} />
+        <meshLambertMaterial {...stoneMat} color={floorColor} />
       </mesh>
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, H + 0.2, 0]}>
         <planeGeometry args={[W + 2.4, L + 2.4]} />
-        <meshLambertMaterial color="#2a1608" />
+        <meshLambertMaterial {...stoneMat} color="#9a6a28" />
       </mesh>
       <mesh position={[-W / 2 - 0.45, H / 2, 0]}>
         <boxGeometry args={[1.1, H + 1.5, L + 2]} />
-        <meshLambertMaterial color={wallColor} />
+        <meshLambertMaterial {...stoneMat} color={wallColor} />
       </mesh>
       <mesh position={[W / 2 + 0.45, H / 2, 0]}>
         <boxGeometry args={[1.1, H + 1.5, L + 2]} />
-        <meshLambertMaterial color={wallColor} />
+        <meshLambertMaterial {...stoneMat} color={wallColor} />
       </mesh>
       <mesh position={[0, H / 2, -L / 2 - 0.45]}>
         <boxGeometry args={[W + 2, H + 1.5, 1.1]} />
-        <meshLambertMaterial color={wallColor} />
+        <meshLambertMaterial {...stoneMat} color={wallColor} />
       </mesh>
       <mesh position={[0, H / 2, L / 2 + 0.45]}>
         <boxGeometry args={[W + 2, H + 1.5, 1.1]} />
-        <meshLambertMaterial color={wallColor} />
+        <meshLambertMaterial {...stoneMat} color={wallColor} />
       </mesh>
 
       <instancedMesh ref={meshRef} args={[geo, undefined, pieces.length]} frustumCulled dispose={null}>
-        <meshLambertMaterial />
+        <meshLambertMaterial color="#f0c56a" emissive="#6a3a12" emissiveIntensity={0.32} />
       </instancedMesh>
 
       {LANTERNS.map((pos) => (
         <mesh key={pos.join(',')} position={pos}>
-          <sphereGeometry args={[0.16, 8, 8]} />
-          <meshBasicMaterial color="#ff2c16" />
+          <sphereGeometry args={[0.18, 8, 8]} />
+          <meshBasicMaterial color="#ff3a1c" />
         </mesh>
       ))}
+      <pointLight position={[-4.4, 5.4, -18]} color="#ff4a22" intensity={9.5} distance={22} decay={2} />
+      <pointLight position={[4.4, 5.2, 0]} color="#ff5a28" intensity={10} distance={22} decay={2} />
+      <pointLight position={[-4.4, 5.4, 18]} color="#ff4018" intensity={9.5} distance={22} decay={2} />
     </group>
   )
 }
