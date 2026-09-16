@@ -52,7 +52,7 @@ export default function App() {
         <Experience started={started} whistle={live} input={input} />
       </Canvas>
       {started ? (
-        <Hud ui={ui} mic={mic} message={message} />
+        <Hud ui={ui} mic={mic} message={message} onEnableMic={enable} />
       ) : (
         <StartScreen
           pending={mic === 'pending'}

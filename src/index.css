@@ -163,6 +163,16 @@ button:disabled {
   letter-spacing: 0.02em;
 }
 
+.hud-mic {
+  margin-top: 8px;
+  padding: 7px 10px;
+  font-size: 11px;
+}
+
+.meter-label {
+  margin: 10px 0 0 !important;
+}
+
 .meter {
   margin-top: 8px;
   height: 6px;

@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Then open the URL Vite prints (default `http://localhost:45321`). The microphone only works on `localhost` or HTTPS.
+Then open the URL Vite prints (default `http://localhost:45321`). The microphone only works in a **secure context**: `localhost` or HTTPS, in a real browser tab. The cloud computer cannot hear you. Cursor’s preview frame often blocks the mic — click Enable whistle and Allow, or open the preview in its own tab. Hold Space if the mic never starts.
 
 ## Controls
 

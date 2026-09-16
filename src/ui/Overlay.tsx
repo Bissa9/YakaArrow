@@ -26,8 +26,9 @@ export function StartScreen({ pending, onWhistle, onKeyboard }: StartProps) {
           </button>
         </div>
         <p className="hint">
-          After you enter, drag or click to steer. Hold Space if you cannot whistle. Shift + Space
-          is a high note.
+          Click Enable whistle, then Allow when the browser asks. If this preview never asks, open
+          it in a normal browser tab — or run it locally with npm run dev. Hold Space if you cannot
+          use the mic. Shift + Space is a high note.
         </p>
       </div>
     </div>
@@ -38,13 +39,31 @@ type HudProps = {
   ui: LiveWhistle
   mic: MicState
   message: string
+  onEnableMic: () => void
 }
 
-export function Hud({ ui, mic, message }: HudProps) {
-  const width = `${Math.round(ui.speed * 100)}%`
-  const pitch = ui.active ? `${Math.round(ui.hz)} Hz` : 'silent'
+export function Hud({ ui, mic, message, onEnableMic }: HudProps) {
+  const speedWidth = `${Math.round(ui.speed * 100)}%`
+  const inputWidth = `${Math.round(ui.level * 100)}%`
+  const pitch = ui.active
+    ? `${Math.round(ui.hz)} Hz`
+    : mic !== 'on'
+      ? 'mic off'
+      : ui.hearing
+        ? 'hearing you — keep a clear whistle'
+        : 'waiting for mic audio'
   const micLabel =
-    mic === 'on' ? 'Whistle live' : mic === 'denied' ? 'Mic blocked' : mic === 'error' ? 'Mic unavailable' : 'Keyboard'
+    mic === 'on'
+      ? ui.active
+        ? 'Whistle live'
+        : ui.hearing
+          ? 'Mic hearing you'
+          : 'Mic on, no audio'
+      : mic === 'denied'
+        ? 'Mic blocked'
+        : mic === 'error'
+          ? 'Mic unavailable'
+          : 'Keyboard'
 
   return (
     <div className="hud">
@@ -52,18 +71,27 @@ export function Hud({ ui, mic, message }: HudProps) {
         <div className="chip">
           <p>Control</p>
           <strong>{micLabel}</strong>
+          {mic !== 'on' && mic !== 'pending' ? (
+            <button type="button" className="hud-mic" onClick={onEnableMic}>
+              Enable whistle
+            </button>
+          ) : null}
         </div>
         <div className="meter-wrap">
-          <p>Pitch → speed</p>
+          <p>Mic input</p>
+          <div className="meter" aria-hidden>
+            <span style={{ width: inputWidth }} />
+          </div>
+          <p className="meter-label">Pitch → speed</p>
           <strong>{pitch}</strong>
           <div className="meter" aria-hidden>
-            <span style={{ width }} />
+            <span style={{ width: speedWidth }} />
           </div>
         </div>
       </div>
       <div className="hud-bottom">
         <p className="help">
-          High whistle: fast. Low whistle: slow. No sound: it floats and turns. Drag or WASD to
+          High whistle: fast. Low whistle: slow. No whistle: it floats and turns. Drag or WASD to
           aim. Hold Space to fly without a mic.
           {message ? (
             <>
